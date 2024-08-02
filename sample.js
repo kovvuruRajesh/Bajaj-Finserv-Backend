@@ -1,13 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors()); // Enable CORS
 
 const userId = 'RajeshKovvuru_05_02_2004'; 
 const email = 'rajesh_kovvuru@srmap.edu.in'; 
 const rollNumber = 'AP21110011398'; 
-
 
 function separateData(data) {
     const numbers = [];
@@ -28,7 +29,6 @@ function separateData(data) {
     return { numbers, alphabets, highestAlphabet: highestAlphabet ? [highestAlphabet] : [] };
 }
 
-// POST 
 app.post('/bfhl', (req, res) => {
     const { data } = req.body;
 
@@ -49,12 +49,10 @@ app.post('/bfhl', (req, res) => {
     });
 });
 
-// GET 
 app.get('/bfhl', (req, res) => {
     res.status(200).json({ operation_code: 1 });
 });
 
-// Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
